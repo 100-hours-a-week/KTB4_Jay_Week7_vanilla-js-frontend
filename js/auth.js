@@ -310,6 +310,8 @@ async function updateProfile() {
       nickname: result.data?.nickname ?? nickname,
       profileImage: result.data?.profileImage ?? profileImageKey
     };
+    selectedProfileImage = currentUser.profileImage;
+    selectedProfileImageChanged = false;
 
     renderLoginStatus();
     renderProfileView(currentUser);

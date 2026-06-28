@@ -160,7 +160,7 @@ function getProfileImageUrl(profileImage) {
     return DEFAULT_PROFILE_IMAGE;
   }
 
-  if (profileImage.startsWith("local-profile-image-")) {
+  if (profileImage.startsWith("local-profile-image-") || profileImage.startsWith("signup-profile-image-")) {
     return localStorage.getItem(profileImage) || DEFAULT_PROFILE_IMAGE;
   }
 
