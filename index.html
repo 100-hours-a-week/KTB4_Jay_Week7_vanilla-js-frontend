@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>게시판</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <header class="header">
+    <h1>게시판</h1>
+
+    <div class="nav-buttons">
+      <button id="show-list-button">목록</button>
+      <button id="show-create-button">글쓰기</button>
+      <button id="show-login-button">로그인</button>
+      <button id="show-signup-button">회원가입</button>
+      <button id="logout-button" class="hidden">로그아웃</button>
+    </div>
+
+    <p id="login-status-text" class="login-status-text">로그인하지 않았습니다.</p>
+  </header>
+
+  <main class="container">
+    <p id="global-message" class="message"></p>
+
+    <section id="login-section" class="section hidden">
+      <h2>로그인</h2>
+
+      <label for="login-email-input">이메일</label>
+      <input id="login-email-input" type="email" placeholder="이메일" />
+
+      <label for="login-password-input">비밀번호</label>
+      <input id="login-password-input" type="password" placeholder="비밀번호" />
+
+      <div class="button-row">
+        <button id="login-button">로그인</button>
+        <button id="cancel-login-button">취소</button>
+      </div>
+    </section>
+
+    <section id="signup-section" class="section hidden">
+      <h2>회원가입</h2>
+
+      <label for="signup-email-input">이메일</label>
+      <input id="signup-email-input" type="email" placeholder="이메일" />
+
+      <label for="signup-password-input">비밀번호</label>
+      <input id="signup-password-input" type="password" placeholder="비밀번호" />
+
+      <label for="signup-nickname-input">닉네임</label>
+      <input id="signup-nickname-input" type="text" placeholder="닉네임" />
+
+      <div class="button-row">
+        <button id="signup-button">회원가입</button>
+        <button id="cancel-signup-button">취소</button>
+      </div>
+    </section>
+
+    <section id="post-list-section" class="section">
+      <div class="section-header">
+        <h2>게시글 목록</h2>
+        <button id="refresh-posts-button">새로고침</button>
+      </div>
+
+      <div id="post-list" class="post-list"></div>
+
+      <div class="pagination">
+        <button id="prev-page-button">이전</button>
+        <span id="page-info">1 / 1</span>
+        <button id="next-page-button">다음</button>
+      </div>
+    </section>
+
+    <section id="post-create-section" class="section hidden">
+      <h2>게시글 작성</h2>
+
+      <label for="create-title-input">제목</label>
+      <input id="create-title-input" type="text" placeholder="제목을 입력하세요" />
+
+      <label for="create-content-input">내용</label>
+      <textarea id="create-content-input" placeholder="내용을 입력하세요"></textarea>
+
+      <div class="button-row">
+        <button id="create-post-button">작성하기</button>
+        <button id="save-draft-button">임시저장</button>
+        <button id="load-draft-button">임시저장 불러오기</button>
+        <button id="cancel-create-button">취소</button>
+      </div>
+    </section>
+
+    <section id="post-detail-section" class="section hidden">
+      <div class="section-header">
+        <h2 id="detail-title"></h2>
+
+        <div class="button-row">
+            <button id="show-report-button" class="danger">신고</button>
+            <button id="back-to-list-button">목록으로</button>
+        </div>
+      </div>
+
+      <div class="meta">
+        <span id="detail-author"></span>
+        <span id="detail-created-at"></span>
+        <span id="detail-edited"></span>
+      </div>
+
+      <div id="detail-content" class="detail-content"></div>
+
+      <div class="count-row">
+        <span>조회수: <strong id="detail-view-count">0</strong></span>
+        <span>좋아요: <strong id="detail-like-count">0</strong></span>
+        <span>댓글: <strong id="detail-comment-count">0</strong></span>
+      </div>
+
+      <div class="button-row">
+        <button id="like-post-button">좋아요</button>
+        <button id="show-edit-button">수정</button>
+        <button id="delete-post-button" class="danger">삭제</button>
+      </div>
+
+      <div id="report-box" class="report-box hidden">
+        <h3>신고</h3>
+        <input id="report-reason-input" type="text" placeholder="신고 사유" />
+        <button id="report-post-button" class="danger">신고하기</button>
+      </div>
+
+      <div class="comment-box">
+        <h3>댓글</h3>
+
+        <div id="comment-list"></div>
+
+        <div class="comment-form">
+          <input id="comment-input" type="text" placeholder="댓글을 입력하세요" />
+          <button id="create-comment-button">댓글 작성</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="post-edit-section" class="section hidden">
+      <h2>게시글 수정</h2>
+
+      <label for="edit-title-input">제목</label>
+      <input id="edit-title-input" type="text" />
+
+      <label for="edit-content-input">내용</label>
+      <textarea id="edit-content-input"></textarea>
+
+      <div class="button-row">
+        <button id="update-post-button">수정 완료</button>
+        <button id="cancel-edit-button">취소</button>
+      </div>
+    </section>
+  </main>
+
+    <script src="./js/state.js"></script>
+    <script src="./js/dom.js"></script>
+    <script src="./js/common.js"></script>
+    <script src="./js/auth.js"></script>
+    <script src="./js/posts.js"></script>
+    <script src="./js/comments.js"></script>
+    <script src="./js/drafts.js"></script>
+    <script src="./js/events.js"></script>
+</body>
+</html>
