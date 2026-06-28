@@ -47,9 +47,9 @@ function createCommentElement(comment, isReply) {
     const deleteButton = document.createElement("button");
     const editButton = document.createElement("button");
     deleteButton.classList.add("danger");
-    deleteButton.textContent = "댓글 삭제";
+    deleteButton.textContent = "삭제";
     editButton.classList.add("secondary");
-    editButton.textContent = "댓글 수정";
+    editButton.textContent = "수정";
 
 
     deleteButton.addEventListener("click", function (event) {

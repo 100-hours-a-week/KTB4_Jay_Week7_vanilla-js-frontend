@@ -4,6 +4,8 @@ const globalMessage = document.querySelector("#global-message");
 
 const loginSection = document.querySelector("#login-section");
 const signupSection = document.querySelector("#signup-section");
+const profileViewSection = document.querySelector("#profile-view-section");
+const profileEditSection = document.querySelector("#profile-edit-section");
 
 const postListSection = document.querySelector("#post-list-section");
 const postCreateSection = document.querySelector("#post-create-section");
@@ -14,13 +16,30 @@ const showListButton = document.querySelector("#show-list-button");
 const showCreateButton = document.querySelector("#show-create-button");
 const showLoginButton = document.querySelector("#show-login-button");
 const showSignupButton = document.querySelector("#show-signup-button");
+const profileMenu = document.querySelector("#profile-menu");
+const profileToggleButton = document.querySelector("#profile-toggle-button");
+const profileToggleImage = document.querySelector("#profile-toggle-image");
+const profileDropdown = document.querySelector("#profile-dropdown");
+const showProfileButton = document.querySelector("#show-profile-button");
+const showProfileEditButton = document.querySelector("#show-profile-edit-button");
+const profileViewEditButton = document.querySelector("#profile-view-edit-button");
+const deleteUserButton = document.querySelector("#delete-user-button");
 const logoutButton = document.querySelector("#logout-button");
 
 const loginStatusText = document.querySelector("#login-status-text");
 
 const signupEmailInput = document.querySelector("#signup-email-input");
 const signupPasswordInput = document.querySelector("#signup-password-input");
+const signupPasswordCheckInput = document.querySelector("#signup-password-check-input");
 const signupNicknameInput = document.querySelector("#signup-nickname-input");
+const signupProfileImageInput = document.querySelector("#signup-profile-image-input");
+const signupProfilePreview = document.querySelector("#signup-profile-preview");
+const signupProfilePlus = document.querySelector("#signup-profile-plus");
+const signupProfileImageError = document.querySelector("#signup-profile-image-error");
+const signupEmailError = document.querySelector("#signup-email-error");
+const signupPasswordError = document.querySelector("#signup-password-error");
+const signupPasswordCheckError = document.querySelector("#signup-password-check-error");
+const signupNicknameError = document.querySelector("#signup-nickname-error");
 const signupButton = document.querySelector("#signup-button");
 const cancelSignupButton = document.querySelector("#cancel-signup-button");
 
@@ -28,6 +47,21 @@ const loginEmailInput = document.querySelector("#login-email-input");
 const loginPasswordInput = document.querySelector("#login-password-input");
 const loginButton = document.querySelector("#login-button");
 const cancelLoginButton = document.querySelector("#cancel-login-button");
+
+const profileViewImage = document.querySelector("#profile-view-image");
+const profileViewUserId = document.querySelector("#profile-view-user-id");
+const profileViewEmail = document.querySelector("#profile-view-email");
+const profileViewNickname = document.querySelector("#profile-view-nickname");
+const profileEditPreview = document.querySelector("#profile-edit-preview");
+const profileImageInput = document.querySelector("#profile-image-input");
+const profileNicknameInput = document.querySelector("#profile-nickname-input");
+const profilePasswordInput = document.querySelector("#profile-password-input");
+const profilePasswordCheckInput = document.querySelector("#profile-password-check-input");
+const profilePasswordError = document.querySelector("#profile-password-error");
+const profilePasswordCheckError = document.querySelector("#profile-password-check-error");
+const updateProfileButton = document.querySelector("#update-profile-button");
+const updatePasswordButton = document.querySelector("#update-password-button");
+const cancelProfileEditButton = document.querySelector("#cancel-profile-edit-button");
 
 const refreshPostsButton = document.querySelector("#refresh-posts-button");
 const postList = document.querySelector("#post-list");

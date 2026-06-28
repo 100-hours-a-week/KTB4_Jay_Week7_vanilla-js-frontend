@@ -8,7 +8,20 @@
 </head>
 <body>
   <header class="header">
-    <h1>게시판</h1>
+    <div class="header-top">
+      <h1>게시판</h1>
+
+      <div id="profile-menu" class="profile-menu hidden">
+        <button id="profile-toggle-button" class="profile-avatar-button" type="button" aria-label="프로필 메뉴 열기">
+          <img id="profile-toggle-image" class="profile-avatar-image" alt="프로필 이미지" />
+        </button>
+        <div id="profile-dropdown" class="profile-dropdown hidden">
+          <button id="show-profile-button" type="button">회원정보 보기</button>
+          <button id="show-profile-edit-button" type="button">회원정보 수정</button>
+          <button id="delete-user-button" type="button" class="danger">회원 탈퇴</button>
+        </div>
+      </div>
+    </div>
 
     <div class="nav-buttons">
       <button id="show-list-button">목록</button>
@@ -42,18 +55,84 @@
     <section id="signup-section" class="section hidden">
       <h2>회원가입</h2>
 
+      <label for="signup-profile-image-input">프로필 사진</label>
+      <p id="signup-profile-image-error" class="field-error"></p>
+      <label class="signup-profile-uploader" for="signup-profile-image-input">
+        <img id="signup-profile-preview" class="signup-profile-preview hidden" alt="프로필 사진 미리보기" />
+        <span id="signup-profile-plus" class="signup-profile-plus">+</span>
+      </label>
+      <input id="signup-profile-image-input" class="hidden-file-input" type="file" accept="image/*" />
+
       <label for="signup-email-input">이메일</label>
       <input id="signup-email-input" type="email" placeholder="이메일" />
+      <p id="signup-email-error" class="field-error"></p>
 
       <label for="signup-password-input">비밀번호</label>
       <input id="signup-password-input" type="password" placeholder="비밀번호" />
+      <p id="signup-password-error" class="field-error"></p>
+
+      <label for="signup-password-check-input">비밀번호 확인</label>
+      <input id="signup-password-check-input" type="password" placeholder="비밀번호 확인" />
+      <p id="signup-password-check-error" class="field-error"></p>
 
       <label for="signup-nickname-input">닉네임</label>
       <input id="signup-nickname-input" type="text" placeholder="닉네임" />
+      <p id="signup-nickname-error" class="field-error"></p>
 
       <div class="button-row">
         <button id="signup-button">회원가입</button>
         <button id="cancel-signup-button">취소</button>
+      </div>
+    </section>
+
+    <section id="profile-view-section" class="section hidden">
+      <div class="section-header">
+        <h2>회원정보</h2>
+        <button id="profile-view-edit-button">수정하기</button>
+      </div>
+
+      <div class="profile-view">
+        <img id="profile-view-image" class="profile-image" alt="프로필 이미지" />
+
+        <div class="profile-info">
+          <p><strong>회원번호</strong> <span id="profile-view-user-id"></span></p>
+          <p><strong>이메일</strong> <span id="profile-view-email"></span></p>
+          <p><strong>닉네임</strong> <span id="profile-view-nickname"></span></p>
+        </div>
+      </div>
+    </section>
+
+    <section id="profile-edit-section" class="section hidden">
+      <h2>회원정보 수정</h2>
+
+      <div class="profile-edit-layout">
+        <img id="profile-edit-preview" class="profile-image" alt="프로필 이미지 미리보기" />
+
+        <div class="profile-edit-fields">
+          <label for="profile-image-input">프로필 이미지</label>
+          <input id="profile-image-input" type="file" accept="image/*" />
+
+          <label for="profile-nickname-input">닉네임</label>
+          <input id="profile-nickname-input" type="text" placeholder="닉네임" />
+        </div>
+      </div>
+
+      <div class="password-box">
+        <h3>비밀번호 변경</h3>
+
+        <label for="profile-password-input">새 비밀번호</label>
+        <input id="profile-password-input" type="password" placeholder="새 비밀번호" />
+        <p id="profile-password-error" class="field-error"></p>
+
+        <label for="profile-password-check-input">새 비밀번호 확인</label>
+        <input id="profile-password-check-input" type="password" placeholder="새 비밀번호 확인" />
+        <p id="profile-password-check-error" class="field-error"></p>
+      </div>
+
+      <div class="button-row">
+        <button id="update-profile-button">수정 완료</button>
+        <button id="update-password-button">비밀번호 변경</button>
+        <button id="cancel-profile-edit-button">취소</button>
       </div>
     </section>
 

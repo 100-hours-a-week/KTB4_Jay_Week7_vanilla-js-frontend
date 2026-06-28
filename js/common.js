@@ -4,6 +4,8 @@
 function showSection(sectionName) {
   loginSection.classList.add("hidden");
   signupSection.classList.add("hidden");
+  profileViewSection.classList.add("hidden");
+  profileEditSection.classList.add("hidden");
   postListSection.classList.add("hidden");
   postCreateSection.classList.add("hidden");
   postDetailSection.classList.add("hidden");
@@ -15,6 +17,14 @@ function showSection(sectionName) {
 
   if (sectionName === "signup") {
     signupSection.classList.remove("hidden");
+  }
+
+  if (sectionName === "profileView") {
+    profileViewSection.classList.remove("hidden");
+  }
+
+  if (sectionName === "profileEdit") {
+    profileEditSection.classList.remove("hidden");
   }
 
   if (sectionName === "list") {
@@ -62,15 +72,21 @@ function renderLoginStatus() {
 
     showLoginButton.classList.remove("hidden");
     showSignupButton.classList.remove("hidden");
+    profileMenu.classList.add("hidden");
+    profileDropdown.classList.add("hidden");
+    profileToggleImage.src = DEFAULT_PROFILE_IMAGE;
     logoutButton.classList.add("hidden");
 
     return;
   }
 
-  loginStatusText.textContent = currentUserId + "번 유저로 로그인 중입니다.";
+  const userLabel = currentUser?.nickname ?? currentUserId + "번 유저";
+  loginStatusText.textContent = userLabel + "로 로그인 중입니다.";
 
   showLoginButton.classList.add("hidden");
   showSignupButton.classList.add("hidden");
+  profileMenu.classList.remove("hidden");
+  renderProfileToggleImage(currentUser);
   logoutButton.classList.remove("hidden");
 }
 
@@ -133,4 +149,46 @@ function formatDate(dateText) {
   }
 
   return dateText.replace("T", " ").slice(0, 19);
+}
+
+function getProfileImageUrl(profileImage) {
+  if (!profileImage || profileImage.trim() === "") {
+    return DEFAULT_PROFILE_IMAGE;
+  }
+
+  if (profileImage === DEFAULT_PROFILE_IMAGE_KEY) {
+    return DEFAULT_PROFILE_IMAGE;
+  }
+
+  if (profileImage.startsWith("local-profile-image-")) {
+    return localStorage.getItem(profileImage) || DEFAULT_PROFILE_IMAGE;
+  }
+
+  return profileImage;
+}
+
+function renderProfileView(user) {
+  profileViewImage.src = getProfileImageUrl(user.profileImage);
+  renderProfileToggleImage(user);
+  profileViewUserId.textContent = user.userId ?? "-";
+  profileViewEmail.textContent = user.email ?? "-";
+  profileViewNickname.textContent = user.nickname ?? "-";
+}
+
+function renderProfileToggleImage(user) {
+  profileToggleImage.src = getProfileImageUrl(user?.profileImage);
+}
+
+function renderProfileEdit(user) {
+  selectedProfileImage = user.profileImage || DEFAULT_PROFILE_IMAGE_KEY;
+  selectedProfileImageChanged = false;
+  profileEditPreview.src = getProfileImageUrl(selectedProfileImage);
+  profileNicknameInput.value = user.nickname ?? "";
+  profilePasswordInput.value = "";
+  profilePasswordCheckInput.value = "";
+  profileImageInput.value = "";
+  profilePasswordError.textContent = "";
+  profilePasswordCheckError.textContent = "";
+  profilePasswordInput.classList.remove("input-error");
+  profilePasswordCheckInput.classList.remove("input-error");
 }

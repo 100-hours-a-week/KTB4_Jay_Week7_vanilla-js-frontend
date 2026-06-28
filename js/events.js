@@ -9,6 +9,29 @@ showSignupButton.addEventListener("click", function () {
   showMessage("회원가입 화면입니다.", "success");
 });
 
+profileToggleButton.addEventListener("click", function () {
+  profileDropdown.classList.toggle("hidden");
+});
+
+showProfileButton.addEventListener("click", function () {
+  profileDropdown.classList.add("hidden");
+  loadCurrentUser(true, "profileView");
+});
+
+showProfileEditButton.addEventListener("click", function () {
+  profileDropdown.classList.add("hidden");
+  loadCurrentUser(true, "profileEdit");
+});
+
+profileViewEditButton.addEventListener("click", function () {
+  loadCurrentUser(false, "profileEdit");
+});
+
+deleteUserButton.addEventListener("click", function () {
+  profileDropdown.classList.add("hidden");
+  deleteUser();
+});
+
 showListButton.addEventListener("click", function () {
   loadPosts(currentPage);
 });
@@ -26,6 +49,26 @@ signupButton.addEventListener("click", function () {
   signup();
 });
 
+signupProfileImageInput.addEventListener("change", function () {
+  readSignupProfileImage(signupProfileImageInput.files[0]);
+});
+
+signupEmailInput.addEventListener("input", function () {
+  validateSignupForm();
+});
+
+signupPasswordInput.addEventListener("input", function () {
+  validateSignupForm();
+});
+
+signupPasswordCheckInput.addEventListener("input", function () {
+  validateSignupForm();
+});
+
+signupNicknameInput.addEventListener("input", function () {
+  validateSignupForm();
+});
+
 loginButton.addEventListener("click", function () {
   login();
 });
@@ -35,11 +78,40 @@ logoutButton.addEventListener("click", function () {
 });
 
 cancelSignupButton.addEventListener("click", function () {
+  clearSignupErrors();
   showSection("list");
 });
 
 cancelLoginButton.addEventListener("click", function () {
   showSection("list");
+});
+
+profileImageInput.addEventListener("change", function () {
+  readProfileImage(profileImageInput.files[0]);
+});
+
+updateProfileButton.addEventListener("click", function () {
+  updateProfile();
+});
+
+updatePasswordButton.addEventListener("click", function () {
+  updatePassword();
+});
+
+profilePasswordInput.addEventListener("input", function () {
+  validateProfilePasswordForm();
+});
+
+profilePasswordCheckInput.addEventListener("input", function () {
+  validateProfilePasswordForm();
+});
+
+cancelProfileEditButton.addEventListener("click", function () {
+  if (currentUser !== null) {
+    renderProfileEdit(currentUser);
+  }
+
+  showSection("profileView");
 });
 
 cancelCreateButton.addEventListener("click", function () {
@@ -116,4 +188,7 @@ reportPostButton.addEventListener("click", function () {
 });
 
 renderLoginStatus();
+if (currentUserId !== null) {
+  loadCurrentUser(false, null);
+}
 loadPosts(0);
