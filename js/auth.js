@@ -167,11 +167,18 @@ function resetSignupProfileImage() {
 
 // 로그인 함수
 async function login() {
+  loginHelperText.textContent = "";
   const email = loginEmailInput.value;
   const password = loginPasswordInput.value;
 
-  if (email.trim() === "" || password.trim() === "") {
-    showMessage("이메일과 비밀번호를 입력하세요.", "error");
+  if (email.trim() === "") {
+    loginHelperText.textContent = "* 이메일을 입력해주세요.";
+    loginButton.disabled = true;
+    return;
+  }
+  if (password.trim() === "") {
+    loginHelperText.textContent = "* 비밀번호를 입력해주세요.";
+    loginButton.disabled = true;
     return;
   }
 
@@ -211,8 +218,29 @@ async function login() {
     showMessage("로그인했습니다.", "success");
     loadPosts(0);
   } catch (error) {
-    showMessage(error.message, "error");
+    loginHelperText.textContent = "* 이메일 또는 비밀번호를 확인해주세요.";
   }
+}
+
+function validateLoginInputs() {
+  const email = loginEmailInput.value.trim();
+  const password = loginPasswordInput.value.trim();
+
+  if (email === "") {
+    loginHelperText.textContent = "* 이메일을 입력해주세요.";
+    loginButton.disabled = true;
+    return false;
+  }
+
+  if (password === "") {
+    loginHelperText.textContent = "* 비밀번호를 입력해주세요.";
+    loginButton.disabled = true;
+    return false;
+  }
+
+  loginHelperText.textContent = "";
+  loginButton.disabled = false;
+  return true;
 }
 
 // 로그아웃 함수

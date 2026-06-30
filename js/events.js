@@ -3,10 +3,12 @@ showLoginButton.addEventListener("click", function () {
   showSection("login");
   showMessage("로그인 화면입니다.", "success");
 });
+loginEmailInput.addEventListener("input", function () {
+  validateLoginInputs();
+});
 
-showSignupButton.addEventListener("click", function () {
-  showSection("signup");
-  showMessage("회원가입 화면입니다.", "success");
+loginPasswordInput.addEventListener("input", function () {
+  validateLoginInputs();
 });
 
 // 오른쪽 위 프로필 동그라미를 누르면 메뉴가 열리고 닫히게 하는 이벤트
@@ -89,13 +91,15 @@ cancelSignupButton.addEventListener("click", function () {
   showSection("list");
 });
 
-cancelLoginButton.addEventListener("click", function () {
-  showSection("list");
-});
-
 profileImageInput.addEventListener("change", function () {
   readProfileImage(profileImageInput.files[0]);
 });
+
+if (goSignupButton !== null) {
+  goSignupButton.addEventListener("click", function () {
+    showSection("signup");
+  });
+}
 
 // 회원정보 수정 완료 버튼 이벤트
 updateProfileButton.addEventListener("click", function () {
@@ -201,4 +205,6 @@ renderLoginStatus();
 if (currentUserId !== null) {
   loadCurrentUser(false, null);
 }
-loadPosts(0);
+renderLoginStatus();
+validateLoginInputs();
+showSection("login");

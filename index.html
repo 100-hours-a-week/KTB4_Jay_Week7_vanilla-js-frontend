@@ -37,20 +37,22 @@
   <main class="container">
     <p id="global-message" class="message"></p>
 
-    <section id="login-section" class="section hidden">
-      <h2>로그인</h2>
+    <section id="login-section" class="login-section">
+  <h2 class="login-title">로그인</h2>
 
-      <label for="login-email-input">이메일</label>
-      <input id="login-email-input" type="email" placeholder="이메일" />
+  <div class="login-card">
+    <label for="login-email-input">이메일</label>
+    <input id="login-email-input" type="email" placeholder="이메일을 입력하세요" />
 
-      <label for="login-password-input">비밀번호</label>
-      <input id="login-password-input" type="password" placeholder="비밀번호" />
+    <label for="login-password-input">비밀번호</label>
+    <input id="login-password-input" type="password" placeholder="비밀번호를 입력하세요" />
 
-      <div class="button-row">
-        <button id="login-button">로그인</button>
-        <button id="cancel-login-button">취소</button>
-      </div>
-    </section>
+    <p id="login-helper-text" class="helper-text"></p>
+
+    <button id="login-button" class="login-submit-button">로그인</button>
+    <button id="go-signup-button" class="text-button">회원가입</button>
+  </div>
+</section>
 
     <section id="signup-section" class="section hidden">
       <h2>회원가입</h2>
@@ -136,7 +138,7 @@
       </div>
     </section>
 
-    <section id="post-list-section" class="section">
+    <section id="post-list-section" class="section hidden">
       <div class="section-header">
         <h2>게시글 목록</h2>
         <button id="refresh-posts-button">새로고침</button>

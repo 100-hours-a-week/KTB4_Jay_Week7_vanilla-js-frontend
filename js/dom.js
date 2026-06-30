@@ -15,7 +15,6 @@ const postEditSection = document.querySelector("#post-edit-section");
 const showListButton = document.querySelector("#show-list-button");
 const showCreateButton = document.querySelector("#show-create-button");
 const showLoginButton = document.querySelector("#show-login-button");
-const showSignupButton = document.querySelector("#show-signup-button");
 const profileMenu = document.querySelector("#profile-menu");
 const profileToggleButton = document.querySelector("#profile-toggle-button");
 const profileToggleImage = document.querySelector("#profile-toggle-image");
@@ -27,6 +26,7 @@ const deleteUserButton = document.querySelector("#delete-user-button");
 const logoutButton = document.querySelector("#logout-button");
 
 const loginStatusText = document.querySelector("#login-status-text");
+const loginHelperText = document.querySelector("#login-helper-text");
 
 const signupEmailInput = document.querySelector("#signup-email-input");
 const signupPasswordInput = document.querySelector("#signup-password-input");
@@ -46,7 +46,6 @@ const cancelSignupButton = document.querySelector("#cancel-signup-button");
 const loginEmailInput = document.querySelector("#login-email-input");
 const loginPasswordInput = document.querySelector("#login-password-input");
 const loginButton = document.querySelector("#login-button");
-const cancelLoginButton = document.querySelector("#cancel-login-button");
 
 const profileViewImage = document.querySelector("#profile-view-image");
 const profileViewUserId = document.querySelector("#profile-view-user-id");
@@ -62,6 +61,7 @@ const profilePasswordCheckError = document.querySelector("#profile-password-chec
 const updateProfileButton = document.querySelector("#update-profile-button");
 const updatePasswordButton = document.querySelector("#update-password-button");
 const cancelProfileEditButton = document.querySelector("#cancel-profile-edit-button");
+const goSignupButton = document.querySelector("#go-signup-button");
 
 const refreshPostsButton = document.querySelector("#refresh-posts-button");
 const postList = document.querySelector("#post-list");
