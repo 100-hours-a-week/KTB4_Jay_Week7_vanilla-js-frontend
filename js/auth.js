@@ -4,11 +4,14 @@ async function signup() {
   const password = signupPasswordInput.value;
   const nickname = signupNicknameInput.value;
 
+  // 회원가입 요청 보내기 전에 프론트에서 먼저 형식 검사를 함
   if (!validateSignupForm()) {
     showMessage("회원가입 정보를 다시 확인하세요.", "error");
     return;
   }
 
+  // 프로필 사진은 선택사항이니깐 없으면 기본 이미지 key를 서버에 보냄
+  // 사진이 있으면 실제 이미지는 localStorage에 저장하고 서버에는 key만 보냄
   const profileImageKey = signupProfileImage.trim() === ""
     ? DEFAULT_PROFILE_IMAGE_KEY
     : "signup-profile-image-" + email.trim();
@@ -31,6 +34,7 @@ async function signup() {
       throw new Error(message);
     }
 
+    // 실제 이미지 문자열은 길어서 DB에 바로 넣지 않고 브라우저 저장소에 저장
     if (signupProfileImage.trim() !== "") {
       localStorage.setItem(profileImageKey, signupProfileImage);
     }
@@ -49,6 +53,8 @@ async function signup() {
   }
 }
 
+// 회원가입 입력값이 조건에 맞는지 확인하는 함수
+// 하나라도 조건이 안 맞으면 false를 반환해서 회원가입 요청을 막음
 function validateSignupForm() {
   const email = signupEmailInput.value.trim();
   const password = signupPasswordInput.value;
@@ -87,14 +93,17 @@ function validateSignupForm() {
   return valid;
 }
 
+// 이메일 형식인지 정규식으로 확인하는 함수
 function isValidEmail(email) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
+// 비밀번호가 소문자, 숫자, 특수문자를 포함하고 8~20자인지 확인하는 함수
 function isValidPassword(password) {
   return /^(?=.*[a-z])(?=.*\d)(?=.*[^A-Za-z0-9]).{8,20}$/.test(password);
 }
 
+// 검증 실패 시 빨간 문구랑 input 에러 스타일을 같이 넣어주는 함수
 function setFieldError(errorElement, inputElement, message) {
   errorElement.textContent = message;
 
@@ -103,6 +112,7 @@ function setFieldError(errorElement, inputElement, message) {
   }
 }
 
+// 회원가입 검증 문구와 빨간 테두리를 전부 초기화하는 함수
 function clearSignupErrors() {
   signupProfileImageError.textContent = "";
   signupEmailError.textContent = "";
@@ -116,6 +126,7 @@ function clearSignupErrors() {
   signupNicknameInput.classList.remove("input-error");
 }
 
+// 회원가입에서 프로필 사진을 선택했을 때 미리보기로 바꿔주는 함수
 function readSignupProfileImage(file) {
   if (!file) {
     resetSignupProfileImage();
@@ -145,6 +156,7 @@ function readSignupProfileImage(file) {
   reader.readAsDataURL(file);
 }
 
+// 회원가입 프로필 사진 선택 상태를 처음 상태로 돌리는 함수
 function resetSignupProfileImage() {
   signupProfileImage = "";
   signupProfileImageInput.value = "";
@@ -194,6 +206,7 @@ async function login() {
     loginPasswordInput.value = "";
 
     renderLoginStatus();
+    // 로그인 후 닉네임과 프로필 이미지를 보여주기 위해 현재 회원정보도 불러옴
     loadCurrentUser(false, null);
     showMessage("로그인했습니다.", "success");
     loadPosts(0);
@@ -210,6 +223,7 @@ function logout() {
   selectedProfileImage = "";
   selectedProfileImageChanged = false;
 
+  // 브라우저에 저장된 로그인 정보도 같이 지워야 새로고침해도 로그아웃 상태가 됨
   localStorage.removeItem("userId");
   localStorage.removeItem("accessToken");
 
@@ -219,6 +233,8 @@ function logout() {
 }
 
 // 현재 로그인한 회원정보 조회 함수
+// 백엔드에 단건 조회가 없어서 목록에서 현재 userId와 같은 사용자를 찾음
+// 조회, 수정 페이지 화면 갱신해줌 renderProfileView 랑 Edit이랑
 async function loadCurrentUser(showSuccessMessage = true, nextSection = "profileView") {
   if (!requireLogin()) {
     return;
@@ -242,6 +258,7 @@ async function loadCurrentUser(showSuccessMessage = true, nextSection = "profile
       throw new Error("회원정보를 찾을 수 없습니다.");
     }
 
+    // 찾은 회원정보를 저장하고 프로필 관련 화면들을 같이 갱신
     currentUser = user;
     renderLoginStatus();
     renderProfileView(user);
@@ -281,6 +298,7 @@ async function updateProfile() {
 
   let profileImageKey = selectedProfileImage;
 
+  // 새 이미지를 선택했으면 실제 이미지는 localStorage에 저장하고 서버에는 짧은 key만 보냄
   if (selectedProfileImageChanged || selectedProfileImage.startsWith("data:image/")) {
     profileImageKey = "local-profile-image-" + currentUserId;
     localStorage.setItem(profileImageKey, selectedProfileImage);
@@ -310,6 +328,7 @@ async function updateProfile() {
       nickname: result.data?.nickname ?? nickname,
       profileImage: result.data?.profileImage ?? profileImageKey
     };
+    // 저장이 끝났으니깐 현재 선택 이미지 상태도 서버에 저장된 key 기준으로 정리
     selectedProfileImage = currentUser.profileImage;
     selectedProfileImageChanged = false;
 
@@ -332,6 +351,7 @@ async function updatePassword() {
   const newPassword = profilePasswordInput.value;
   const newPasswordCheck = profilePasswordCheckInput.value;
 
+  // 비밀번호 변경도 회원가입이랑 같은 규칙으로 먼저 검사
   if (!validateProfilePasswordForm()) {
     showMessage("비밀번호 변경 정보를 다시 확인하세요.", "error");
     return;
@@ -363,6 +383,7 @@ async function updatePassword() {
   }
 }
 
+// 회원정보 수정 화면에서 새 비밀번호 조건을 확인하는 함수
 function validateProfilePasswordForm() {
   const newPassword = profilePasswordInput.value;
   const newPasswordCheck = profilePasswordCheckInput.value;
@@ -386,6 +407,7 @@ function validateProfilePasswordForm() {
   return valid;
 }
 
+// 비밀번호 변경 검증 문구와 빨간 테두리를 초기화하는 함수
 function clearProfilePasswordErrors() {
   profilePasswordError.textContent = "";
   profilePasswordCheckError.textContent = "";

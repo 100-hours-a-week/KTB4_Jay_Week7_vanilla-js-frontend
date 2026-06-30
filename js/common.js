@@ -151,6 +151,8 @@ function formatDate(dateText) {
   return dateText.replace("T", " ").slice(0, 19);
 }
 
+// 프로필 이미지를 화면에 보여줄 수 있는 주소로 바꿔주는 함수
+// 서버에는 이미지 key만 저장되어 있을 수 있으니깐 localStorage에서 실제 이미지를 찾아줌
 function getProfileImageUrl(profileImage) {
   if (!profileImage || profileImage.trim() === "") {
     return DEFAULT_PROFILE_IMAGE;
@@ -167,6 +169,7 @@ function getProfileImageUrl(profileImage) {
   return profileImage;
 }
 
+// 회원정보 보기 화면에 현재 사용자 정보를 넣어주는 함수
 function renderProfileView(user) {
   profileViewImage.src = getProfileImageUrl(user.profileImage);
   renderProfileToggleImage(user);
@@ -175,10 +178,13 @@ function renderProfileView(user) {
   profileViewNickname.textContent = user.nickname ?? "-";
 }
 
+// 오른쪽 위 동그라미 프로필에도 같은 이미지가 보여야되니깐 따로 갱신하는 함수
 function renderProfileToggleImage(user) {
   profileToggleImage.src = getProfileImageUrl(user?.profileImage);
 }
 
+// 회원정보 수정 화면으로 들어갈 때 기존 정보를 미리 넣어주는 함수
+// 비밀번호는 보여주면 안되니깐 항상 비워둠
 function renderProfileEdit(user) {
   selectedProfileImage = user.profileImage || DEFAULT_PROFILE_IMAGE_KEY;
   selectedProfileImageChanged = false;
