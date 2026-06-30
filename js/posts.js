@@ -139,7 +139,6 @@ async function createPost() {
     createContentInput.value = "";
     draftExists = false;
 
-    showMessage("게시글을 작성했습니다.", "success");
     loadPosts(0);
   } catch (error) {
     showMessage(error.message, "error");
@@ -169,9 +168,6 @@ async function loadPostDetail(postId, showSuccessMessage = true) {
     renderPostDetail(post);
 
     showSection("detail");
-    if (showSuccessMessage === true){
-        showMessage("게시글 상세를 불러왔습니다.", "success");
-    }
   } catch (error) {
     showMessage(error.message, "error");
   }
@@ -265,8 +261,7 @@ async function updatePost() {
       throw new Error(message);
     }
 
-    showMessage("게시글을 수정했습니다.", "success");
-    loadPostDetail(currentPostId);
+   loadPostDetail(currentPostId);
   } catch (error) {
     showMessage(error.message, "error");
   }
@@ -306,7 +301,6 @@ async function deletePost() {
 
     currentPostId = null;
 
-    showMessage("게시글을 삭제했습니다.", "success");
     loadPosts(currentPage);
   } catch (error) {
     showMessage(error.message, "error");
@@ -341,11 +335,6 @@ async function likePost() {
       throw new Error(message);
     }
 
-    if (currentPostLiked) {
-      showMessage("좋아요를 취소했습니다.", "success");
-    } else {
-      showMessage("좋아요를 눌렀습니다.", "success");
-    }
 
     loadPostDetail(currentPostId, false);
   } catch (error) {
@@ -394,12 +383,10 @@ async function reportPost() {
 
     
     if (result.data && result.data.blinded === true){
-        showMessage("신고 누적으로 블라인드 처리되었습니다.", "success");
         loadPosts(0);
         return;
     } 
 
-    showMessage("신고가 접수되었습니다.", "success");
     loadPostDetail(currentPostId, false);
     
     

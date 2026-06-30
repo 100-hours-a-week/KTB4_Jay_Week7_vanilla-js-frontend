@@ -330,7 +330,6 @@ function logout() {
   localStorage.removeItem("accessToken");
 
   renderLoginStatus();
-  showMessage("로그아웃했습니다.", "success");
   showSection("login");
 }
 
