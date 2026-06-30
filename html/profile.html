@@ -1,0 +1,56 @@
+<section id="profile-view-section" class="section hidden">
+  <div class="section-header">
+    <h2>회원정보</h2>
+    <button id="profile-view-edit-button">수정하기</button>
+  </div>
+
+  <div class="profile-view">
+    <img id="profile-view-image" class="profile-image" alt="프로필 이미지" />
+
+    <div class="profile-info">
+      <p><strong>회원번호</strong> <span id="profile-view-user-id"></span></p>
+      <p><strong>이메일</strong> <span id="profile-view-email"></span></p>
+      <p><strong>닉네임</strong> <span id="profile-view-nickname"></span></p>
+    </div>
+  </div>
+</section>
+<section id="password-edit-section" class="section password-edit-section hidden">
+  <h2>비밀번호 수정</h2>
+
+  <div class="password-edit-form">
+    <label for="profile-password-input">비밀번호</label>
+    <input id="profile-password-input" type="password" placeholder="비밀번호를 입력하세요" />
+    <p id="profile-password-error" class="field-error"></p>
+
+    <label for="profile-password-check-input">비밀번호 확인</label>
+    <input id="profile-password-check-input" type="password" placeholder="비밀번호를 한번 더 입력하세요" />
+    <p id="profile-password-check-error" class="field-error"></p>
+
+    <button id="update-password-button" class="profile-submit-button">수정하기</button>
+  </div>
+</section>
+
+<section id="profile-edit-section" class="section profile-edit-section hidden">
+  <h2>회원정보수정</h2>
+
+  <label>프로필 사진*</label>
+  <label class="profile-edit-image-uploader" for="profile-image-input">
+    <img id="profile-edit-preview" class="profile-image" alt="프로필 이미지 미리보기" />
+    <span class="profile-image-change-text">변경</span>
+  </label>
+  <input id="profile-image-input" class="hidden-file-input" type="file" accept="image/*" />
+
+  <div class="profile-edit-form">
+    <label>이메일</label>
+    <p id="profile-edit-email" class="readonly-text"></p>
+
+    <label for="profile-nickname-input">닉네임</label>
+    <input id="profile-nickname-input" type="text" placeholder="닉네임" />
+    <p id="profile-nickname-error" class="field-error"></p>
+
+    <button id="update-profile-button" class="profile-submit-button">수정하기</button>
+    <button id="delete-user-button" class="profile-delete-button" type="button">회원 탈퇴</button>
+  </div>
+</section>
+
+  

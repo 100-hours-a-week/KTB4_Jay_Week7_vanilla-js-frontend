@@ -26,7 +26,6 @@ async function loadPosts(page = 0) {
     renderPageInfo(pageData);
 
     showSection("list");
-    showMessage("게시글 목록을 불러왔습니다.", "success");
   } catch (error) {
     showMessage(error.message, "error");
   }
@@ -54,21 +53,24 @@ function renderPosts(posts) {
     title.textContent = post.title;
 
     const author = document.createElement("p");
-    author.textContent = "작성자: " + getAuthorName(post);
+    author.classList.add("post-author");
+    author.textContent = getAuthorName(post);
 
     const counts = document.createElement("p");
+    counts.classList.add("post-counts");
     counts.textContent =
-      "조회수 " + (post.viewCount ?? 0) +
-      " · 좋아요 " + (post.likeCount ?? 0) +
-      " · 댓글 " + (post.commentCount ?? 0);
+      "좋아요 " + (post.likeCount ?? 0) +
+      "   댓글 " + (post.commentCount ?? 0) +
+      "   조회수 " + (post.viewCount ?? 0);
 
     const createdAt = document.createElement("p");
-    createdAt.textContent = "작성일: " + formatDate(post.createdAt);
+    createdAt.classList.add("post-date");
+    createdAt.textContent = formatDate(post.createdAt);
 
     postCard.appendChild(title);
-    postCard.appendChild(author);
     postCard.appendChild(counts);
     postCard.appendChild(createdAt);
+    postCard.appendChild(author);
 
     // 게시글 카드를 클릭하면 해당 게시글의 상세조회 실행
     // 블라인드 처리된 게시글은 상세조회 클릭 막기

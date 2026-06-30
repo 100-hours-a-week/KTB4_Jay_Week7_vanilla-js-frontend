@@ -4,8 +4,14 @@
 function showSection(sectionName) {
   loginSection.classList.add("hidden");
   signupSection.classList.add("hidden");
-  profileViewSection.classList.add("hidden");
+
+  if (profileViewSection !== null) {
+    profileViewSection.classList.add("hidden");
+  }
+
   profileEditSection.classList.add("hidden");
+  passwordEditSection.classList.add("hidden");
+
   postListSection.classList.add("hidden");
   postCreateSection.classList.add("hidden");
   postDetailSection.classList.add("hidden");
@@ -19,12 +25,16 @@ function showSection(sectionName) {
     signupSection.classList.remove("hidden");
   }
 
-  if (sectionName === "profileView") {
+  if (sectionName === "profileView" && profileViewSection !== null) {
     profileViewSection.classList.remove("hidden");
   }
 
   if (sectionName === "profileEdit") {
     profileEditSection.classList.remove("hidden");
+  }
+
+  if (sectionName === "passwordEdit") {
+    passwordEditSection.classList.remove("hidden");
   }
 
   if (sectionName === "list") {
@@ -41,6 +51,13 @@ function showSection(sectionName) {
 
   if (sectionName === "edit") {
     postEditSection.classList.remove("hidden");
+  }
+
+  if (sectionName === "login" || sectionName === "signup" || currentUserId === null) {
+    profileMenu.classList.add("hidden");
+    profileDropdown.classList.add("hidden");
+  } else {
+    profileMenu.classList.remove("hidden");
   }
 }
 
@@ -70,8 +87,6 @@ function renderLoginStatus() {
   if (currentUserId === null) {
     loginStatusText.textContent = "로그인하지 않았습니다.";
 
-    showLoginButton.classList.remove("hidden");
-    showSignupButton.classList.remove("hidden");
     profileMenu.classList.add("hidden");
     profileDropdown.classList.add("hidden");
     profileToggleImage.src = DEFAULT_PROFILE_IMAGE;
@@ -83,9 +98,6 @@ function renderLoginStatus() {
   const userLabel = currentUser?.nickname ?? currentUserId + "번 유저";
   loginStatusText.textContent = userLabel + "로 로그인 중입니다.";
 
-  showLoginButton.classList.add("hidden");
-  showSignupButton.classList.add("hidden");
-  profileMenu.classList.remove("hidden");
   renderProfileToggleImage(currentUser);
   logoutButton.classList.remove("hidden");
 }
@@ -197,4 +209,5 @@ function renderProfileEdit(user) {
   profilePasswordCheckError.textContent = "";
   profilePasswordInput.classList.remove("input-error");
   profilePasswordCheckInput.classList.remove("input-error");
+  profileEditEmail.textContent = user.email ?? "-";
 }

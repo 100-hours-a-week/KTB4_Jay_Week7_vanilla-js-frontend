@@ -2,6 +2,8 @@
 // querySelector로 HTML 문서에서 가져옴
 const globalMessage = document.querySelector("#global-message");
 
+const homeTitleButton = document.querySelector("#home-title-button");
+
 const loginSection = document.querySelector("#login-section");
 const signupSection = document.querySelector("#signup-section");
 const profileViewSection = document.querySelector("#profile-view-section");
@@ -15,6 +17,7 @@ const postEditSection = document.querySelector("#post-edit-section");
 const showListButton = document.querySelector("#show-list-button");
 const showCreateButton = document.querySelector("#show-create-button");
 const showLoginButton = document.querySelector("#show-login-button");
+const showSignupButton = document.querySelector("#show-signup-button");
 const profileMenu = document.querySelector("#profile-menu");
 const profileToggleButton = document.querySelector("#profile-toggle-button");
 const profileToggleImage = document.querySelector("#profile-toggle-image");
@@ -41,11 +44,17 @@ const signupPasswordError = document.querySelector("#signup-password-error");
 const signupPasswordCheckError = document.querySelector("#signup-password-check-error");
 const signupNicknameError = document.querySelector("#signup-nickname-error");
 const signupButton = document.querySelector("#signup-button");
+const signupBackButton = document.querySelector("#signup-back-button");
 const cancelSignupButton = document.querySelector("#cancel-signup-button");
 
 const loginEmailInput = document.querySelector("#login-email-input");
 const loginPasswordInput = document.querySelector("#login-password-input");
 const loginButton = document.querySelector("#login-button");
+
+const passwordEditSection = document.querySelector("#password-edit-section");
+const showPasswordEditButton = document.querySelector("#show-password-edit-button");
+const profileNicknameError = document.querySelector("#profile-nickname-error");
+const profileEditEmail = document.querySelector("#profile-edit-email");
 
 const profileViewImage = document.querySelector("#profile-view-image");
 const profileViewUserId = document.querySelector("#profile-view-user-id");

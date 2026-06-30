@@ -13,6 +13,13 @@ let currentUser = null;
 let selectedProfileImage = "";
 let selectedProfileImageChanged = false;
 let signupProfileImage = "";
+let signupTouched = {
+  profileImage: false,
+  email: false,
+  password: false,
+  passwordCheck: false,
+  nickname: false
+};
 
 // 기본 프로필 이미지는 항상 같아야되니깐 const
 // 서버에는 긴 이미지 문자열 대신 key만 보내기 위해서 기본 key도 따로 저장

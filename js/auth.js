@@ -4,17 +4,16 @@ async function signup() {
   const password = signupPasswordInput.value;
   const nickname = signupNicknameInput.value;
 
+  markAllSignupFieldsTouched();
+
   // 회원가입 요청 보내기 전에 프론트에서 먼저 형식 검사를 함
   if (!validateSignupForm()) {
     showMessage("회원가입 정보를 다시 확인하세요.", "error");
     return;
   }
 
-  // 프로필 사진은 선택사항이니깐 없으면 기본 이미지 key를 서버에 보냄
-  // 사진이 있으면 실제 이미지는 localStorage에 저장하고 서버에는 key만 보냄
-  const profileImageKey = signupProfileImage.trim() === ""
-    ? DEFAULT_PROFILE_IMAGE_KEY
-    : "signup-profile-image-" + email.trim();
+  // 실제 이미지는 localStorage에 저장하고 서버에는 이미지 key만 보냄
+  const profileImageKey = "signup-profile-image-" + email.trim();
 
   const body = {
     email: email.trim(),
@@ -49,7 +48,7 @@ async function signup() {
     showMessage("회원가입이 완료되었습니다. 로그인해주세요.", "success");
     showSection("login");
   } catch (error) {
-    showMessage(error.message, "error");
+    showSignupServerError(error.message);
   }
 }
 
@@ -64,32 +63,52 @@ function validateSignupForm() {
 
   clearSignupErrors();
 
+  if (signupProfileImage.trim() === "") {
+    if (signupTouched.profileImage === true) {
+    setFieldError(signupProfileImageError, null, "* 프로필 사진을 추가해주세요.");
+    }
+    valid = false;
+  }
+
   if (!isValidEmail(email)) {
+    if (signupTouched.email === true) {
     setFieldError(signupEmailError, signupEmailInput, "* 올바른 이메일 주소 형식을 입력해주세요. (예: example@example.com)");
+    }
     valid = false;
   }
 
   if (!isValidPassword(password)) {
+    if (signupTouched.password === true) {
     setFieldError(signupPasswordError, signupPasswordInput, "* 비밀번호는 8자 이상, 20자 이하이며, 소문자, 숫자, 특수문자를 각각 최소 1개 포함해야 합니다.");
+    }
     valid = false;
   }
 
   if (passwordCheck.trim() === "") {
+    if (signupTouched.passwordCheck === true) {
     setFieldError(signupPasswordCheckError, signupPasswordCheckInput, "* 비밀번호 확인을 입력해주세요.");
+    }
     valid = false;
   } else if (password !== passwordCheck) {
+    if (signupTouched.passwordCheck === true) {
     setFieldError(signupPasswordCheckError, signupPasswordCheckInput, "* 비밀번호가 다릅니다.");
+    }
     valid = false;
   }
 
   if (nickname === "") {
+    if (signupTouched.nickname === true) {
     setFieldError(signupNicknameError, signupNicknameInput, "* 닉네임을 입력해주세요.");
+    }
     valid = false;
   } else if (nickname.length > 10) {
+    if (signupTouched.nickname === true) {
     setFieldError(signupNicknameError, signupNicknameInput, "* 닉네임은 최대 10자까지 작성 가능합니다.");
+    }
     valid = false;
   }
 
+  signupButton.disabled = !valid;
   return valid;
 }
 
@@ -124,18 +143,62 @@ function clearSignupErrors() {
   signupPasswordInput.classList.remove("input-error");
   signupPasswordCheckInput.classList.remove("input-error");
   signupNicknameInput.classList.remove("input-error");
+  signupButton.disabled = true;
+}
+
+// 회원가입 화면을 처음 열거나 취소할 때는 빨간 문구가 바로 보이지 않도록 초기화
+function resetSignupTouched() {
+  signupTouched.profileImage = false;
+  signupTouched.email = false;
+  signupTouched.password = false;
+  signupTouched.passwordCheck = false;
+  signupTouched.nickname = false;
+}
+
+// 회원가입 버튼을 누르면 비어 있는 모든 항목을 한 번에 보여줘야 하므로 전부 건드린 상태로 바꿈
+function markAllSignupFieldsTouched() {
+  signupTouched.profileImage = true;
+  signupTouched.email = true;
+  signupTouched.password = true;
+  signupTouched.passwordCheck = true;
+  signupTouched.nickname = true;
+}
+
+// 서버가 중복 이메일이나 중복 닉네임을 알려주면 해당 입력칸 아래에 보여주는 함수
+function showSignupServerError(message) {
+  const lowerMessage = message.toLowerCase();
+
+  if (message.includes("이메일") || lowerMessage.includes("email")) {
+    signupTouched.email = true;
+    setFieldError(signupEmailError, signupEmailInput, "* 중복된 이메일입니다.");
+    signupButton.disabled = true;
+    return;
+  }
+
+  if (message.includes("닉네임") || lowerMessage.includes("nickname")) {
+    signupTouched.nickname = true;
+    setFieldError(signupNicknameError, signupNicknameInput, "* 중복된 닉네임입니다.");
+    signupButton.disabled = true;
+    return;
+  }
+
+  showMessage(message, "error");
 }
 
 // 회원가입에서 프로필 사진을 선택했을 때 미리보기로 바꿔주는 함수
 function readSignupProfileImage(file) {
+  signupTouched.profileImage = true;
+
   if (!file) {
     resetSignupProfileImage();
+    validateSignupForm();
     return;
   }
 
   if (!file.type.startsWith("image/")) {
     setFieldError(signupProfileImageError, null, "* 이미지 파일만 선택할 수 있습니다.");
     resetSignupProfileImage();
+    validateSignupForm();
     return;
   }
 
@@ -147,6 +210,7 @@ function readSignupProfileImage(file) {
     signupProfilePreview.classList.remove("hidden");
     signupProfilePlus.classList.add("hidden");
     signupProfileImageError.textContent = "";
+    validateSignupForm();
   };
 
   reader.onerror = function () {
@@ -167,20 +231,12 @@ function resetSignupProfileImage() {
 
 // 로그인 함수
 async function login() {
-  loginHelperText.textContent = "";
+  if (!validateLoginInputs()) {
+    return;
+  }
+
   const email = loginEmailInput.value;
   const password = loginPasswordInput.value;
-
-  if (email.trim() === "") {
-    loginHelperText.textContent = "* 이메일을 입력해주세요.";
-    loginButton.disabled = true;
-    return;
-  }
-  if (password.trim() === "") {
-    loginHelperText.textContent = "* 비밀번호를 입력해주세요.";
-    loginButton.disabled = true;
-    return;
-  }
 
   const body = {
     email: email,
@@ -215,7 +271,6 @@ async function login() {
     renderLoginStatus();
     // 로그인 후 닉네임과 프로필 이미지를 보여주기 위해 현재 회원정보도 불러옴
     loadCurrentUser(false, null);
-    showMessage("로그인했습니다.", "success");
     loadPosts(0);
   } catch (error) {
     loginHelperText.textContent = "* 이메일 또는 비밀번호를 확인해주세요.";
@@ -226,15 +281,34 @@ function validateLoginInputs() {
   const email = loginEmailInput.value.trim();
   const password = loginPasswordInput.value.trim();
 
+  loginEmailInput.classList.remove("input-error");
+  loginPasswordInput.classList.remove("input-error");
+
   if (email === "") {
     loginHelperText.textContent = "* 이메일을 입력해주세요.";
     loginButton.disabled = true;
+    loginEmailInput.classList.add("input-error");
+    return false;
+  }
+
+  if (!isValidEmail(email)) {
+    loginHelperText.textContent = "* 올바른 이메일 주소 형식을 입력해주세요. (예: example@example.com)";
+    loginButton.disabled = true;
+    loginEmailInput.classList.add("input-error");
     return false;
   }
 
   if (password === "") {
     loginHelperText.textContent = "* 비밀번호를 입력해주세요.";
     loginButton.disabled = true;
+    loginPasswordInput.classList.add("input-error");
+    return false;
+  }
+
+  if (!isValidPassword(password)) {
+    loginHelperText.textContent = "* 비밀번호는 8자 이상, 20자 이하이며, 소문자, 숫자, 특수문자를 각각 최소 1개 포함해야 합니다.";
+    loginButton.disabled = true;
+    loginPasswordInput.classList.add("input-error");
     return false;
   }
 
@@ -257,7 +331,7 @@ function logout() {
 
   renderLoginStatus();
   showMessage("로그아웃했습니다.", "success");
-  showSection("list");
+  showSection("login");
 }
 
 // 현재 로그인한 회원정보 조회 함수
@@ -315,14 +389,14 @@ async function updateProfile() {
   const nickname = profileNicknameInput.value;
 
   if (nickname.trim() === "") {
-    showMessage("닉네임을 입력하세요.", "error");
+    setFieldError(profileNicknameError, profileNicknameInput, "* 닉네임을 입력해주세요.");
     return;
   }
 
-  if (selectedProfileImage.trim() === "") {
-    showMessage("프로필 이미지를 선택하세요.", "error");
+    if (nickname.trim().length > 10) {
+    setFieldError(profileNicknameError, profileNicknameInput, "* 닉네임은 최대 10자까지 작성 가능합니다.");
     return;
-  }
+    }
 
   let profileImageKey = selectedProfileImage;
 
@@ -360,6 +434,8 @@ async function updateProfile() {
     selectedProfileImage = currentUser.profileImage;
     selectedProfileImageChanged = false;
 
+    profileNicknameError.textContent = "";
+    profileNicknameInput.classList.remove("input-error");
     renderLoginStatus();
     renderProfileView(currentUser);
     renderProfileEdit(currentUser);

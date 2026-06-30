@@ -1,0 +1,50 @@
+<section id="login-section" class="login-section">
+  <h2 class="login-title">로그인</h2>
+
+  <div class="login-card">
+    <label for="login-email-input">이메일</label>
+    <input id="login-email-input" type="email" placeholder="이메일을 입력하세요" />
+
+    <label for="login-password-input">비밀번호</label>
+    <input id="login-password-input" type="password" placeholder="비밀번호를 입력하세요" />
+
+    <p id="login-helper-text" class="helper-text"></p>
+
+    <button id="login-button" class="login-submit-button" disabled>로그인</button>
+    <button id="go-signup-button" class="text-button">회원가입</button>
+  </div>
+</section>
+
+<section id="signup-section" class="section signup-section hidden">
+  <button id="signup-back-button" class="signup-back-button" type="button" aria-label="로그인으로 돌아가기">‹</button>
+  <h2>회원가입</h2>
+
+  <label for="signup-profile-image-input">프로필 사진*</label>
+  <p id="signup-profile-image-error" class="field-error">* 프로필 사진을 추가해주세요.</p>
+  <label class="signup-profile-uploader" for="signup-profile-image-input">
+    <img id="signup-profile-preview" class="signup-profile-preview hidden" alt="프로필 사진 미리보기" />
+    <span id="signup-profile-plus" class="signup-profile-plus">+</span>
+  </label>
+  <input id="signup-profile-image-input" class="hidden-file-input" type="file" accept="image/*" />
+
+  <label for="signup-email-input">이메일*</label>
+  <input id="signup-email-input" type="email" placeholder="이메일을 입력하세요" />
+  <p id="signup-email-error" class="field-error"></p>
+
+  <label for="signup-password-input">비밀번호*</label>
+  <input id="signup-password-input" type="password" placeholder="비밀번호를 입력하세요" />
+  <p id="signup-password-error" class="field-error"></p>
+
+  <label for="signup-password-check-input">비밀번호 확인*</label>
+  <input id="signup-password-check-input" type="password" placeholder="비밀번호를 한번 더 입력하세요" />
+  <p id="signup-password-check-error" class="field-error"></p>
+
+  <label for="signup-nickname-input">닉네임*</label>
+  <input id="signup-nickname-input" type="text" placeholder="닉네임을 입력하세요" />
+  <p id="signup-nickname-error" class="field-error"></p>
+
+  <div class="button-row">
+    <button id="signup-button" class="signup-submit-button" disabled>회원가입</button>
+    <button id="cancel-signup-button" class="text-button" type="button">로그인하러 가기</button>
+  </div>
+</section>

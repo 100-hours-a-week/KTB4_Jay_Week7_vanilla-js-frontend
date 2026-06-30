@@ -1,0 +1,143 @@
+.post-list-intro {
+  position: relative;
+  margin: 0 auto 14px auto;
+  text-align: center;
+}
+
+.post-list-intro p {
+  margin: 0 0 18px 0;
+  font-size: 22px;
+  line-height: 1.35;
+}
+
+#show-create-button {
+  display: block;
+  width: 150px;
+  height: 50px;
+  margin-left: auto;
+  border-radius: 12px;
+  background-color: #aca0eb;
+  color: white;
+  font-weight: 800;
+}
+
+#post-list-section {
+  width: min(100%, 592px);
+  margin: 0 auto;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background-color: transparent;
+}
+
+.post-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 8px;
+}
+
+.post-card {
+  overflow: hidden;
+  border: 0;
+  border-radius: 14px;
+  padding: 0;
+  background-color: white;
+  box-shadow: 0 5px 18px rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+}
+
+.post-card:hover {
+  background-color: white;
+  transform: translateY(-1px);
+}
+
+.post-card.blinded {
+  background-color: #f9eeee;
+}
+
+.post-card h3 {
+  margin: 0;
+  padding: 24px 24px 12px 24px;
+  font-size: 24px;
+  font-weight: 800;
+}
+
+.post-card p {
+  margin: 0;
+  color: #111;
+  font-size: 14px;
+}
+
+.post-counts {
+  display: inline-block;
+  width: 56%;
+  padding: 0 0 18px 24px;
+}
+
+.post-date {
+  display: inline-block;
+  width: 44%;
+  padding: 0 24px 18px 0;
+  text-align: right;
+}
+
+.post-author {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 64px;
+  padding: 14px 24px;
+  border-top: 1px solid #ddd;
+  font-weight: 800;
+}
+
+.post-author::before {
+  content: "";
+  width: 36px;
+  height: 36px;
+  flex: 0 0 36px;
+  border-radius: 50%;
+  background-color: #d9d9d9;
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.detail-content {
+  min-height: 160px;
+  padding: 20px 0;
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+  line-height: 1.7;
+  white-space: pre-wrap;
+}
+
+.count-row {
+  display: flex;
+  gap: 16px;
+  margin: 18px 0;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
+  margin-top: 24px;
+}
+
+#page-info {
+  font-weight: bold;
+}
+
+.report-box {
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid #eee;
+}
