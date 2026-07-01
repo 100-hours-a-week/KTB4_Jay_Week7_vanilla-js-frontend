@@ -10,15 +10,27 @@
   line-height: 1.35;
 }
 
+.post-list-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.list-login-button,
 #show-create-button {
-  display: block;
   width: 150px;
   height: 50px;
-  margin-left: auto;
   border-radius: 12px;
-  background-color: #aca0eb;
   color: white;
   font-weight: 800;
+}
+
+.list-login-button {
+  background-color: #222;
+}
+
+#show-create-button {
+  background-color: #aca0eb;
 }
 
 #post-list-section {

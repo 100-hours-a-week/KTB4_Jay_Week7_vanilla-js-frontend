@@ -1,3 +1,6 @@
+// ==============================
+// 댓글 목록 렌더링
+// ==============================
 // 댓글 목록을 화면에 그리는 함수
 function renderComments(comments) {
   commentList.innerHTML = "";
@@ -13,6 +16,9 @@ function renderComments(comments) {
   });
 }
 
+// ==============================
+// 댓글 아이템 생성
+// ==============================
 // 댓글 또는 대댓글 하나를 만드는 함수
 function createCommentElement(comment, isReply) {
   const commentItem = document.createElement("div");
@@ -82,6 +88,9 @@ function createCommentElement(comment, isReply) {
   return commentItem;
 }
 
+// ==============================
+// 댓글 작성
+// ==============================
 // 댓글 작성 함수
 async function createComment() {
   if (!requireLogin()) {
@@ -125,6 +134,9 @@ async function createComment() {
   }
 }
 
+// ==============================
+// 댓글 삭제
+// ==============================
 // 댓글 삭제 함수
 async function deleteComment(commentId) {
   if (!requireLogin()) {
@@ -159,6 +171,9 @@ async function deleteComment(commentId) {
   }
 }
 
+// ==============================
+// 댓글 수정 폼
+// ==============================
 // 댓글 수정 버튼을 눌렀을 때 수정 입력창을 보여주는 함수
 function showCommentEditForm(commentItem, comment) {
   // 이미 수정 폼이 열려 있으면 다시 누를 때 닫기
@@ -203,6 +218,10 @@ function showCommentEditForm(commentItem, comment) {
   // 댓글 박스 아래에 수정 폼 붙이기
   commentItem.appendChild(editForm);
 }
+
+// ==============================
+// 댓글 수정 요청
+// ==============================
 // 댓글 수정 함수
 async function updateComment(commentId, comment) {
   if (!requireLogin()) {

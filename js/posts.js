@@ -1,3 +1,6 @@
+// ==============================
+// 게시글 목록 조회
+// ==============================
 // 게시글 목록을 서버에서 불러오는 함수
 async function loadPosts(page = 0) {
   try {
@@ -31,6 +34,9 @@ async function loadPosts(page = 0) {
   }
 }
 
+// ==============================
+// 게시글 목록 렌더링
+// ==============================
 // 게시글 목록을 화면에 그리는 함수
 function renderPosts(posts) {
   // 기존 목록 비우기
@@ -97,6 +103,9 @@ function renderPageInfo(pageData) {
   nextPageButton.disabled = pageData.last;
 }
 
+// ==============================
+// 게시글 작성
+// ==============================
 // 게시글 작성 함수
 async function createPost() {
   // 로그인 필요한 기능이니깐 확인
@@ -145,12 +154,20 @@ async function createPost() {
   }
 }
 
+// ==============================
+// 게시글 상세 조회
+// ==============================
 // 게시글 상세조회 함수
 async function loadPostDetail(postId, showSuccessMessage = true) {
   try {
     // 현재 백엔드는 상세조회 시 userId를 요구하므로 로그인 안 했을 때는 임시로 1 사용
-    const userId = currentUserId ?? 1;
-
+    
+    const userId = currentUserId;
+    if (userId === null) {
+        showMessage("로그인이 필요합니다.", "error");
+        showSection("login");
+        return;
+    } 
     const response = await fetch(
       API_BASE_URL + "/posts/" + postId + "?userId=" + userId
     );
@@ -173,6 +190,9 @@ async function loadPostDetail(postId, showSuccessMessage = true) {
   }
 }
 
+// ==============================
+// 게시글 상세 렌더링
+// ==============================
 // 게시글 상세 화면을 그리는 함수
 function renderPostDetail(post) {
   detailTitle.textContent = post.title;
@@ -218,6 +238,9 @@ function renderPostDetail(post) {
   renderComments(post.comments);
 }
 
+// ==============================
+// 게시글 수정
+// ==============================
 // 게시글 수정 함수
 async function updatePost() {
     // 로그인했는지 확인
@@ -267,6 +290,9 @@ async function updatePost() {
   }
 }
 
+// ==============================
+// 게시글 삭제
+// ==============================
 // 게시글 삭제 함수
 async function deletePost() {
   if (!requireLogin()) {
@@ -307,6 +333,9 @@ async function deletePost() {
   }
 }
 
+// ==============================
+// 게시글 좋아요
+// ==============================
 // 게시글 좋아요 함수
 async function likePost() {
   if (!requireLogin()) {
@@ -342,6 +371,9 @@ async function likePost() {
   }
 }
 
+// ==============================
+// 게시글 신고
+// ==============================
 // 게시글 신고 함수
 async function reportPost() {
   if (!requireLogin()) {

@@ -1,3 +1,6 @@
+// ==============================
+// HTML 조각 불러오기
+// ==============================
 // 기능별로 나눈 HTML 파일을 기존 JS 실행 전에 한 화면으로 조립하는 함수
 function includeHtml() {
   const includeElements = document.querySelectorAll("[data-include]");

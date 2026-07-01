@@ -161,6 +161,14 @@
   background-color: white;
 }
 
+.profile-edit-form .field-error,
+.password-edit-form .field-error {
+  min-height: 18px;
+  margin: 4px 0 12px 0;
+  font-size: 13px;
+  line-height: 1.35;
+}
+
 .readonly-text {
   margin: 0 0 12px 0;
   font-size: 13px;
@@ -191,4 +199,65 @@
 .profile-delete-button:hover {
   background-color: #f0f0f0;
   opacity: 1;
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background-color: rgba(0, 0, 0, 0.35);
+}
+
+.modal-overlay.hidden {
+  display: none;
+}
+
+.confirm-modal {
+  width: 100%;
+  max-width: 408px;
+  padding: 44px 36px 36px 36px;
+  border-radius: 8px;
+  background-color: white;
+  text-align: center;
+}
+
+.confirm-modal h2 {
+  margin: 0 0 24px 0;
+  font-size: 24px;
+  font-weight: 800;
+}
+
+.confirm-modal p {
+  margin: 0 0 28px 0;
+  font-size: 16px;
+  color: #222;
+}
+
+.confirm-modal-actions {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+}
+
+.confirm-modal-actions button {
+  width: 128px;
+  height: 44px;
+  padding: 0;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.confirm-cancel-button {
+  background-color: #242424;
+  color: white;
+}
+
+.confirm-submit-button {
+  background-color: #b998f4;
+  color: #111;
 }

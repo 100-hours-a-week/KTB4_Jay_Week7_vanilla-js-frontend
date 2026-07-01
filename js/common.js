@@ -1,3 +1,6 @@
+// ==============================
+// 화면 전환
+// ==============================
 // 보여지는 화면 설정하기 
 // 1. 처음에 모든 화면 hidden 설정 (클래스 추가를 통해)
 // 2. 보고 싶은 화면만 hidden 제거
@@ -61,6 +64,9 @@ function showSection(sectionName) {
   }
 }
 
+// ==============================
+// 전역 메시지
+// ==============================
 // showMessage 함수를 통해 성공, 실패 시에 globalMessage 안에 클래스를 추가하였습니다.
 // 추가 하기 전에 깔끔하게 비워줘야 확실히 표시가 됩니다. 
 function showMessage(message, type) {
@@ -82,37 +88,45 @@ function showMessage(message, type) {
   }
 }
 
+// 화면을 이동할 때 이전 성공/실패 문구가 남지 않도록 지우는 함수
+function clearMessage() {
+  globalMessage.textContent = "";
+  globalMessage.classList.remove("success");
+  globalMessage.classList.remove("error");
+}
+
+// ==============================
+// 로그인 상태 표시 / 로그인 필요 검사
+// ==============================
 // 로그인 상태 위에 출력해주는 함수
 function renderLoginStatus() {
   if (currentUserId === null) {
-    loginStatusText.textContent = "로그인하지 않았습니다.";
-
     profileMenu.classList.add("hidden");
     profileDropdown.classList.add("hidden");
     profileToggleImage.src = DEFAULT_PROFILE_IMAGE;
-    logoutButton.classList.add("hidden");
+    showListLoginButton.classList.remove("hidden");
 
     return;
   }
 
-  const userLabel = currentUser?.nickname ?? currentUserId + "번 유저";
-  loginStatusText.textContent = userLabel + "로 로그인 중입니다.";
-
   renderProfileToggleImage(currentUser);
-  logoutButton.classList.remove("hidden");
+  showListLoginButton.classList.add("hidden");
 }
 
 // 로그인 필요한지 확인하는 함수
 function requireLogin() {
   if (currentUserId === null) {
-    showMessage("로그인이 필요합니다.", "error");
     showSection("login");
+    showMessage("로그인이 필요합니다.", "error");
     return false;
   }
 
   return true;
 }
 
+// ==============================
+// fetch 옵션 / 에러 메시지 유틸
+// ==============================
 // JSON으로 변경해주는 함수
 function getJsonOptions(method, body) {
   const headers = {
@@ -141,6 +155,9 @@ async function getErrorMessage(response, fallbackMessage) {
   }
 }
 
+// ==============================
+// 게시글 표시 유틸
+// ==============================
 // 작성자 이름을 상황에 따라 다르게 보여주는 함수
 function getAuthorName(post) {
   if (post.blinded === true) {
@@ -163,6 +180,9 @@ function formatDate(dateText) {
   return dateText.replace("T", " ").slice(0, 19);
 }
 
+// ==============================
+// 프로필 이미지 / 회원정보 렌더링
+// ==============================
 // 프로필 이미지를 화면에 보여줄 수 있는 주소로 바꿔주는 함수
 // 서버에는 이미지 key만 저장되어 있을 수 있으니깐 localStorage에서 실제 이미지를 찾아줌
 function getProfileImageUrl(profileImage) {

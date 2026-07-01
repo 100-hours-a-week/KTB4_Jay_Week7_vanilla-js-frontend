@@ -30,20 +30,6 @@
   font-weight: 500;
 }
 
-.nav-buttons {
-  display: none;
-  gap: 8px;
-  flex-wrap: wrap;
-  align-items: flex-start;
-}
-
-.login-status-text {
-  display: none;
-  margin-top: 12px;
-  font-weight: bold;
-  color: #555;
-}
-
 .container {
   width: min(100%, 1100px);
   min-height: 720px;

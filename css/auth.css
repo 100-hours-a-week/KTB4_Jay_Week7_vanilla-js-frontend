@@ -190,6 +190,15 @@
   border-color: #ff3b30;
 }
 
+.login-card .field-error {
+  min-height: 18px;
+  margin: 4px 0 12px 0;
+  color: #ff3b30;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
 .helper-text {
   min-height: 20px;
   margin: 8px 0 18px 0;
